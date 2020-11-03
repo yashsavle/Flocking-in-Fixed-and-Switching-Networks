@@ -1,8 +1,11 @@
-## Welcome to GitHub Pages
+## Mini Project 2
+### Authors: Shubham Sonawane, Raj Shinde, Yash Savle, Moumita Paul
 
-You can use the [editor on GitHub](https://github.com/yashsavle/Flocking-in-Fixed-and-Switching-Networks/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Introduction
+We aim to implement the findings and results obtained in the paper ["Flocking in Fixed and Switching Networks"](https://www.seas.upenn.edu/~jadbabai/papers/boids_automatica5.pdf) by H. G. Tanner, A. Jadbabaie and G. J. Pappas, in IEEE Transactions on Automatic Control, vol. 52, no. 5, pp. 863-868, May 2007. doi: 10.1109/TAC.2007.895948 
+
+
 
 ### Markdown
 
@@ -26,12 +29,3 @@ Syntax highlighted code bloc
 [Link](url) and ![Image](src)
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/yashsavle/Flocking-in-Fixed-and-Switching-Networks/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
