@@ -22,8 +22,7 @@ P_dot - acceleration
 class Flock:
     def __init__(self, inter_agent_dist = 7, comm_range = None, num_of_agents = 10, 
                  init_pos = None, init_vel = None, time_step = 0.01, sigma_norm_eps = 0.1, 
-                 phi_a = 5, phi_b = 5, gamma_agent = True,
-                 gamma_cq = 1, gamma_cp = 1):
+                 phi_a = 5, phi_b = 5, gamma_agent = True, gamma_cq = 1, gamma_cp = 1):
         self.N = num_of_agents
         self.Q = init_pos
         self.P = init_vel
@@ -32,15 +31,12 @@ class Flock:
         self.q = np.array([100, 0])
         self.cp = gamma_cp
         self.cq = gamma_cq
-#        self.P_dot = acc
-#        self.args = acc_arg
         self.dt = time_step
         self.e = sigma_norm_eps
         self.d = inter_agent_dist
         self.a = phi_a
         self.b = phi_b
         self.r = 1.2*self.d
-#        self.rho_h = rho_h
         self.G = self.get_net(self.Q)
     
     def run_sim(self, T= 10, to_agreement = False):
@@ -131,7 +127,12 @@ class Flock:
                     A[i,j] = rho_h(self.sigma_norm(Q[j] - Q[i])/r_alpha)
         return A
     
+    '''navigational feedback eqn 24 '''
     def f_gamma(self, Q, P):
+#        return 0
+        '''
+        self.q and self.p are the states of gamma agent
+        '''
         return (-1)*self.cq*(Q - self.q) - self.cp*(P - self.p)
     
     def velocity_angle_agreement(self, v, tol = 1e-6):
@@ -145,38 +146,36 @@ class Flock:
         return True
     
 if __name__ == "__main__":
-#    vel_sim = main()
     N = 10
     np.random.seed(10)
     Q = np.sqrt(2500)*np.random.randn(N, 2)
-    P = 5*np.random.randn(N, 2) - 1
+    P = 2*np.random.randn(N, 2) - 1
     time_period = 10
     FS = Flock(num_of_agents = N, init_pos = Q, init_vel = P, gamma_agent = True)
     FS.run_sim(T = time_period)
 #    FS.plot_time_series(100)
     vel_sim = FS.P_sim
-    vel_x_agent0 = []
-    vel_x_agent1 = []
-    vel_x_agent2 = []
     temp_x = []
     temp_y = []
+    vel_agent = []
     for i in range(0, 10):
         for j in range(0, 1000):
             temp_x.append(vel_sim[j][i][0])
             temp_y.append(vel_sim[j][i][1])
-            if(i == 0):
-                if vel_sim[j][i][0] < 0 or vel_sim[j][i][1] < 0:
-                    vel_x_agent0.append(-1*math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
-                else:
-                    vel_x_agent0.append(math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
-            elif(i == 1):
-                if vel_sim[j][i][0] < 0 or vel_sim[j][i][1] < 0:
-                    vel_x_agent1.append(-1*math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
-                else:
-                    vel_x_agent1.append(math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
-#    FS.plot()
+            if vel_sim[j][i][0] < 0 or vel_sim[j][i][1] < 0:
+                vel_agent.append(-1*math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
+            else:
+                vel_agent.append(math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
+
     time_range = np.arange(0, 1000)
-    plt.plot(time_range, vel_x_agent0, color = 'red')
-    plt.plot(time_range, vel_x_agent1, color = 'blue')
-#    plt.plot(time_range, vel_x_agent2, color = 'green')
+    plt.plot(time_range, vel_agent[0:1000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[1000:2000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[2000:3000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[3000:4000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[4000:5000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[5000:6000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[6000:7000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[7000:8000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[8000:9000], linewidth = 0.5)
+    plt.plot(time_range, vel_agent[9000:10000], linewidth = 0.5)
     plt.show()
