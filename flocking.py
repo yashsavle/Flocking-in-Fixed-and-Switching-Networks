@@ -148,7 +148,7 @@ if __name__ == "__main__":
     FS.plot_time_series(0)
     plt.show()
     plot3 = plt.figure(3)
-    FS.plot_time_series(500)
+    FS.plot_time_series(100)
     plt.show()
     vel_sim = FS.P_sim
     temp_x = []
