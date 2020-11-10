@@ -5,7 +5,7 @@ import time
 import math
 
 ''' def collision avoidance function '''
-def rho_h(z, h = 0.2):
+def rho_h(z, h = 0.99):
     if(0 <= z and z < h):
         return 1
     elif(z >=h and z < 1):
@@ -82,15 +82,14 @@ class Flock:
         
         for i in range(0, self.N):
             plt.arrow(self.Q_sim[time_step_plot][i,0], self.Q_sim[time_step_plot][i,1],
-                      rel[i, 0], rel[i, 1], width = arrow_width, 
-                      edgecolor = 'green', facecolor = 'green')
+                      2*rel[i, 0], 2*rel[i, 1], width = arrow_width)
         self.G = self.get_net(self.Q_sim[time_step_plot])
         G = self.G.copy()
         Q = self.Q_sim[time_step_plot].copy()
         node_colors = ['red']
         rel_gamma = self.p_sim[time_step_plot]/max(norms)
         plt.arrow(self.q_sim[time_step_plot][0], self.q_sim[time_step_plot][1],
-                  rel_gamma[0], rel_gamma[1], width = arrow_width, edgecolor = 'blue',
+                  2*rel_gamma[0], 2*rel_gamma[1], width = arrow_width, edgecolor = 'blue',
                   facecolor = 'blue')
         G.add_node(self.N)
         node_colors = []
@@ -104,7 +103,7 @@ class Flock:
                          width = width, node_size = node_size,
                          with_labels = False)
 #        plt.autoscale(enable=True)
-        plt.tick_params(axis='both',which='both',bottom=True,left=True,labelbottom=True,labelleft=True)
+#        plt.tick_params(axis='both',which='both',bottom=True,left=True,labelbottom=True,labelleft=True)
         plt.xlim(plt.xlim()[0]-np.abs(unit[0,0]), plt.xlim()[1] + np.abs(unit[0,0]))
         plt.ylim(plt.ylim()[0]-np.abs(unit[0,1]), plt.ylim()[1] + np.abs(unit[0,1]))
         plt.title("t = %ss" %(time_step_plot/100), fontsize=25)
@@ -117,15 +116,6 @@ class Flock:
                     if (not G.has_edge(i, j)):
                         G.add_edge(i, j)
         return (G)
-    
-    def get_spatial_adj(self, Q):
-        r_alpha = self.sigma_norm(self.r)
-        A = np.zeros((self.N, self.N))
-        for i in range(0, self.N):
-            for j in range(0, self.N):
-                if (i != j):
-                    A[i,j] = rho_h(self.sigma_norm(Q[j] - Q[i])/r_alpha)
-        return A
     
     '''navigational feedback eqn 24 '''
     def f_gamma(self, Q, P):
@@ -151,9 +141,15 @@ if __name__ == "__main__":
     Q = np.sqrt(2500)*np.random.randn(N, 2)
     P = 2*np.random.randn(N, 2) - 1
     time_period = 10
+    plot1 = plt.figure(1)
+#    plot2 = plt.figure(2)
     FS = Flock(num_of_agents = N, init_pos = Q, init_vel = P, gamma_agent = True)
     FS.run_sim(T = time_period)
-#    FS.plot_time_series(100)
+    FS.plot_time_series(0)
+    plt.show()
+    plot3 = plt.figure(3)
+    FS.plot_time_series(500)
+    plt.show()
     vel_sim = FS.P_sim
     temp_x = []
     temp_y = []
@@ -166,7 +162,7 @@ if __name__ == "__main__":
                 vel_agent.append(-1*math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
             else:
                 vel_agent.append(math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
-
+    plot2 = plt.figure(2)
     time_range = np.arange(0, 1000)
     plt.plot(time_range, vel_agent[0:1000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[1000:2000], linewidth = 0.5)
@@ -178,4 +174,4 @@ if __name__ == "__main__":
     plt.plot(time_range, vel_agent[7000:8000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[8000:9000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[9000:10000], linewidth = 0.5)
-    plt.show()
+    plt.show()    
