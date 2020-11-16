@@ -1,11 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 import networkx as nx
 import time
 import math
 
 class Flock:
-    def __init__(self, inter_agent_dist = 7, num_of_agents = 10,init_pos = None, init_vel = None, time_step = 0.01, gamma_cq = 1, gamma_cp = 1):
+    def __init__(self, inter_agent_dist = 7, num_of_agents = 10, init_pos = None, init_vel = None, time_step = 0.01, gamma_cq = 1, gamma_cp = 1):
         self.N = num_of_agents
         self.Q = init_pos
         self.P = init_vel
@@ -47,8 +48,7 @@ class Flock:
             else:
                 t += self.dt    
     
-    def plot_time_series(self, time_step_plot, with_labels = False, node_size = 25,
-                         width = 2.5, arrow_width = 0.5):
+    def plot_time_series(self, time_step_plot, with_labels = False, node_size = 25, width = 2.5, arrow_width = 0.5):
        
         unit = np.zeros(self.P_sim[time_step_plot].shape)
         norms = np.zeros(self.N)
@@ -60,16 +60,13 @@ class Flock:
             rel[i] = unit[i]*(np.linalg.norm(self.P_sim[time_step_plot][i])/max(norms))
         
         for i in range(0, self.N):
-            plt.arrow(self.Q_sim[time_step_plot][i,0], self.Q_sim[time_step_plot][i,1],
-                      2*rel[i, 0], 2*rel[i, 1], width = arrow_width)
+            plt.arrow(self.Q_sim[time_step_plot][i,0], self.Q_sim[time_step_plot][i,1],2*rel[i, 0], 2*rel[i, 1], width = arrow_width)
         self.G = self.get_net(self.Q_sim[time_step_plot])
         G = self.G.copy()
         Q = self.Q_sim[time_step_plot].copy()
         node_colors = ['red']
         rel_gamma = self.p_sim[time_step_plot]/max(norms)
-        plt.arrow(self.q_sim[time_step_plot][0], self.q_sim[time_step_plot][1],
-                  2*rel_gamma[0], 2*rel_gamma[1], width = arrow_width, edgecolor = 'blue',
-                  facecolor = 'blue')
+        plt.arrow(self.q_sim[time_step_plot][0], self.q_sim[time_step_plot][1],2*rel_gamma[0], 2*rel_gamma[1], width = arrow_width, edgecolor = 'blue',facecolor = 'blue')
         G.add_node(self.N)
         node_colors = []
         for node in G:
@@ -78,12 +75,12 @@ class Flock:
             elif node == self.N:
                 node_colors.append('red')
         Q = np.append(Q, self.q_sim[time_step_plot]).reshape(self.N + 1, 2)
-        nx.draw_networkx(G, pos = Q, node_color = node_colors, edgecolor = 'white', 
-                         width = width, node_size = node_size,
-                         with_labels = False)
+        nx.draw_networkx(G, pos = Q, node_color = node_colors, width = width, node_size = node_size, with_labels = False)
         plt.xlim(plt.xlim()[0]-np.abs(unit[0,0]), plt.xlim()[1] + np.abs(unit[0,0]))
         plt.ylim(plt.ylim()[0]-np.abs(unit[0,1]), plt.ylim()[1] + np.abs(unit[0,1]))
         plt.title("t = %ss" %(time_step_plot/100), fontsize=25)
+
+        return plt
         
     def get_net(self, Q):
         G = nx.Graph()
@@ -125,6 +122,7 @@ if __name__ == "__main__":
     Q = np.sqrt(2500)*np.random.randn(N, 2)
     P = 2*np.random.randn(N, 2) - 1
     time_period = 10
+
     plot1 = plt.figure(1)
     FS = Flock(num_of_agents = N, init_pos = Q, init_vel = P)
     FS.run_sim(T = time_period)
@@ -133,6 +131,14 @@ if __name__ == "__main__":
     plot3 = plt.figure(3)
     FS.plot_time_series(100)
     plt.show()
+
+    plot4 = plt.figure(4)
+    ims = []
+    for i in range(0,101):
+      ims.append((FS.plot_time_series(i),))
+    im_ani = animation.ArtistAnimation(plot4, ims, interval=1000, repeat_delay=0,blit=True)
+    plt.show()
+
     vel_sim = FS.P_sim
     temp_x = []
     temp_y = []
@@ -147,6 +153,7 @@ if __name__ == "__main__":
                 vel_agent.append(math.sqrt(vel_sim[j][i][0]**2 + vel_sim[j][i][1]**2))
     plot2 = plt.figure(2)
     time_range = np.arange(0, 1000)
+
     plt.plot(time_range, vel_agent[0:1000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[1000:2000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[2000:3000], linewidth = 0.5)
@@ -157,4 +164,5 @@ if __name__ == "__main__":
     plt.plot(time_range, vel_agent[7000:8000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[8000:9000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[9000:10000], linewidth = 0.5)
-    plt.show()    
+    plt.show()   
+    plt.close() 
