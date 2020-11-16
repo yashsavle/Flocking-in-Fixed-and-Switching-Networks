@@ -4,42 +4,21 @@ import networkx as nx
 import time
 import math
 
-''' def collision avoidance function '''
-def rho_h(z, h = 0.99):
-    if(0 <= z and z < h):
-        return 1
-    elif(z >=h and z < 1):
-        return 0.5*(1 + np.cos(np.pi*(z - h)/(1 - h)))
-    else:
-        return 0
-
-'''
-Q - initial position
-P - initial velocity
-P_dot - acceleration
-'''
-
 class Flock:
-    def __init__(self, inter_agent_dist = 7, comm_range = None, num_of_agents = 10, 
-                 init_pos = None, init_vel = None, time_step = 0.01, sigma_norm_eps = 0.1, 
-                 phi_a = 5, phi_b = 5, gamma_agent = True, gamma_cq = 1, gamma_cp = 1):
+    def __init__(self, inter_agent_dist = 7, num_of_agents = 10,init_pos = None, init_vel = None, time_step = 0.01, gamma_cq = 1, gamma_cp = 1):
         self.N = num_of_agents
         self.Q = init_pos
         self.P = init_vel
-        self.gamma_agent = gamma_agent
         self.p = np.array([2, 0])
         self.q = np.array([100, 0])
         self.cp = gamma_cp
         self.cq = gamma_cq
         self.dt = time_step
-        self.e = sigma_norm_eps
         self.d = inter_agent_dist
-        self.a = phi_a
-        self.b = phi_b
-        self.r = 1.2*self.d
+        self.r = 0.2*self.d
         self.G = self.get_net(self.Q)
     
-    def run_sim(self, T= 10, to_agreement = False):
+    def run_sim(self, T= 10, to_agreement = True):
         self.Q_sim = []
         self.P_sim = []
         self.sim_time = []
@@ -102,8 +81,6 @@ class Flock:
         nx.draw_networkx(G, pos = Q, node_color = node_colors, edgecolor = 'white', 
                          width = width, node_size = node_size,
                          with_labels = False)
-#        plt.autoscale(enable=True)
-#        plt.tick_params(axis='both',which='both',bottom=True,left=True,labelbottom=True,labelleft=True)
         plt.xlim(plt.xlim()[0]-np.abs(unit[0,0]), plt.xlim()[1] + np.abs(unit[0,0]))
         plt.ylim(plt.ylim()[0]-np.abs(unit[0,1]), plt.ylim()[1] + np.abs(unit[0,1]))
         plt.title("t = %ss" %(time_step_plot/100), fontsize=25)
@@ -119,7 +96,6 @@ class Flock:
     
     '''navigational feedback eqn 24 '''
     def f_gamma(self, Q, P):
-#        return 0
         '''
         self.q and self.p are the states of gamma agent
         '''
@@ -134,6 +110,14 @@ class Flock:
             if(np.abs(ref - np.angle(complex(unit[i, 0], unit[i, 1]))) > tol):
                 return False
         return True
+
+def rho_h(z, h = 0.99):
+    if(0 <= z and z < h):
+        return 1
+    elif(z >=h and z < 1):
+        return 0.5*(1 + np.cos(np.pi*(z - h)/(1 - h)))
+    else:
+        return 0
     
 if __name__ == "__main__":
     N = 10
@@ -142,8 +126,7 @@ if __name__ == "__main__":
     P = 2*np.random.randn(N, 2) - 1
     time_period = 10
     plot1 = plt.figure(1)
-#    plot2 = plt.figure(2)
-    FS = Flock(num_of_agents = N, init_pos = Q, init_vel = P, gamma_agent = True)
+    FS = Flock(num_of_agents = N, init_pos = Q, init_vel = P)
     FS.run_sim(T = time_period)
     FS.plot_time_series(0)
     plt.show()
