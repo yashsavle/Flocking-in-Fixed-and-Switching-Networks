@@ -35,6 +35,7 @@ The robots are moving in random direction without any control policy being emplo
 2. Agent position and orientation after some time
 
 As soon as we ran our algorithm for a duration of 1s we can see that a leader agent was chosen and other robots aligned themselves in the direction of the leader.
+
 ![Flocking](results/agents_1.png?style=centerme)
 
 3. Velocity convergence
