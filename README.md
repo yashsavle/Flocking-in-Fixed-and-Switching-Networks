@@ -27,4 +27,4 @@ The results are as follows:
 
 ![velocity](results/vel_convergence.png?style=centerme)
 
-The code for the implementation of this algorithm is available at: https://github.com/yashsavle/Flocking-in-Fixed-and-Switching-Networks/blob/flocking_dev/flocking.py
+The code for the implementation of this algorithm is available at: [code](https://github.com/yashsavle/Flocking-in-Fixed-and-Switching-Networks/blob/flocking_dev/flocking.py)
