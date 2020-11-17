@@ -46,6 +46,10 @@ Our implementation does not take into account the maximum velocity limit for the
 
 The code for the implementation of this algorithm is available at: [code](https://github.com/yashsavle/Flocking-in-Fixed-and-Switching-Networks/blob/flocking_dev/flocking.py)
 
+## Future Work
+The algorithm can be improved by incorporating the Dynamics of the robot as well as by considering the velocity and acceleration constraints in to account. 
+This will help to predict actual behaviour for a fleet of drones. 
+
 ## References
 [1] Flocking in Fixed and Switching Networks by H. G. Tanner, A. Jadbabaie and G. J. Pappas, in IEEE Transactions on Automatic Control, vol. 52, no. 5, pp. 863-868, May 2007. doi: 10.1109/TAC.2007.895948.
 
