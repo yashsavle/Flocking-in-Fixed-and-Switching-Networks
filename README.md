@@ -41,6 +41,8 @@ As soon as we ran our algorithm for a duration of 1s we can see that a leader ag
 
 ![velocity](results/vel_convergence.png?style=centerme)
 
+Our implementation does not take into account the maximum velocity limit for the agents. As seen from the graph above, the agents are able to change their velocity immediately. However, this will not be the case in real-world scenario.
+
 The code for the implementation of this algorithm is available at: [code](https://github.com/yashsavle/Flocking-in-Fixed-and-Switching-Networks/blob/flocking_dev/flocking.py)
 
 ## References
