@@ -7,7 +7,7 @@ We aim to implement the findings and results obtained in the paper ["Flocking in
 
 The authors have presented the performance of their flocking algorithm in this paper. In the results, it can be seen that the agents, which have different orientations initially, gradually align themselves. Also, the velocities of the agents can be seen to converge over a period of time
 
-We have implemented the algorithm, and have generated 2 results:
+We have implemented the algorithm for a fixed network of agents. A fixed network means that the network is time invariant. We represent the communication network with the help of a graph. We have reproduced 2 results from the original paper, which are as follows:
 1. Demonstration of gradual orientation and position convergence of the agents
 2. Demonstration of velocity convergence of the agents
 
