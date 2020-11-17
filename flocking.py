@@ -108,14 +108,7 @@ class Flock:
                 return False
         return True
 
-def rho_h(z, h = 0.99):
-    if(0 <= z and z < h):
-        return 1
-    elif(z >=h and z < 1):
-        return 0.5*(1 + np.cos(np.pi*(z - h)/(1 - h)))
-    else:
-        return 0
-    
+
 if __name__ == "__main__":
     N = 10
     np.random.seed(10)
@@ -165,4 +158,4 @@ if __name__ == "__main__":
     plt.plot(time_range, vel_agent[8000:9000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[9000:10000], linewidth = 0.5)
     plt.show()   
-    plt.close() 
+    plt.close()
