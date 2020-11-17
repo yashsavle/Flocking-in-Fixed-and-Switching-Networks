@@ -157,5 +157,4 @@ if __name__ == "__main__":
     plt.plot(time_range, vel_agent[7000:8000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[8000:9000], linewidth = 0.5)
     plt.plot(time_range, vel_agent[9000:10000], linewidth = 0.5)
-    plt.show()   
-    plt.close()
+    plt.show()       
