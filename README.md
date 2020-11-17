@@ -12,3 +12,19 @@ We have implemented the algorithm for a fixed network of agents. A fixed network
 2. Demonstration of velocity convergence of the agents
 
 Our algorithm was tested on 10 agents, similar to the results presented in the paper.
+
+The results are as follows:
+
+1. Initial state of the agents
+
+![Initial positions](results/agents_0.png?style=centerme)
+
+2. Agent position and orientation after some time
+
+![Flocking](results/agents_1.png?style=centerme)
+
+3. Velocity convergence
+
+![velocity](results/vel_convergence.png?style=centerme)
+
+The code for the implementation of this algorithm is available at: https://github.com/yashsavle/Flocking-in-Fixed-and-Switching-Networks/blob/flocking_dev/flocking.py
