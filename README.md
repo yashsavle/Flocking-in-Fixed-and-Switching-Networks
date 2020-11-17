@@ -45,5 +45,9 @@ The code for the implementation of this algorithm is available at: [code](https:
 
 ## References
 [1] Flocking in Fixed and Switching Networks by H. G. Tanner, A. Jadbabaie and G. J. Pappas, in IEEE Transactions on Automatic Control, vol. 52, no. 5, pp. 863-868, May 2007. doi: 10.1109/TAC.2007.895948.
+
 [2] C. W. Reynolds. Flocks, Herds and Schools: A Distributed Behavioral Model. In Proceedings of the 14th Annual Conference on Computer Graphics and Interactive Techniques, SIGGRAPH’87, pages 25–34, New York, NY, USA, 1987. ACM. doi:10.1145/37401.37406.
+
 [3] [S. Zhou. Clone Swarms: Learning to Predict and Control Multi-Robot Systems by Imitation. In Proceedings of  2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) ]
+
+[4] R. Olfati-Saber Flocking for multi-agent dynamic systems: algorithms and theory. In proceedings of IEEE Transactions on Automatic Control March 2006
