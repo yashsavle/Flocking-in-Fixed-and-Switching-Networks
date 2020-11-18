@@ -10,7 +10,7 @@ They present an algorothim which imitates the flocking model of the
 The authors have presented the performance of their flocking algorithm in this paper. In the results, it can be seen that the agents, which have different orientations initially, gradually align themselves. Also, the velocities of the agents can be seen to converge over a period of time. The three aspects which drive the actions of individual agents among the group are: 
 1. Seperation: maintaining fixed distance between each other to avoid crowding.
 2. Alignment: Move along with the heading of local co-agents.
-3. Cohesion: Keeo moving towards the average position of local co-agents.
+3. Cohesion: Keep moving towards the average position of local co-agents.
 
 ## Approach
 The agents flocking in a group only consider a neighborhood in its vicinity. The region of the neighborhood is calculated with distance amongst the neighbors and angle from the direction of motion. In each neighborhood there is a leader present and all the robots will follow the three actions specified above. The number of interactions amongst th neighbors is pre determined. They then calculate the position, velocities and acceleration for the agents. Using these parameters te approach angle is calculated.
